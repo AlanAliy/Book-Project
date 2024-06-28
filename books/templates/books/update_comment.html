@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Update Comment </title>
+</head>
+
+<body>
+    <h1> Update your comment for {{ book_name }}</h1>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Post a Comment</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 70px;
+            }
+            .card {
+                margin-bottom: 20px;
+            }
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <a class="navbar-brand" href="{% url 'comments-list' book_id=book.id %}">Comment Section</a>
+        </nav>
+        <div class="container">
+            <h1 class="my-4">Post a Comment for {{ book.name }}</h1>
+            {% if form.username.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.username.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if form.body.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.body.errors %}
+                        <p>{{ error }}</p>
+                     {% endfor %}
+                </div>
+            {% endif %}
+            </div>
+    
+            <form method="post" action="{% url 'create-comment' book_id=book.id %}">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username must be at least 5 characters" value="{{ form.username.value|default:'' }}">
+                </div>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" value="{{ form.title.value|default:'' }}">
+                </div>
+                <div class="form-group">
+                    <label for="body">Body</label>
+                    <textarea class="form-control" id="body" name="body" rows="4">{{ form.body.value|default:'' }}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <!-- Bootstrap JS and dependencies -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+    </html>
+    

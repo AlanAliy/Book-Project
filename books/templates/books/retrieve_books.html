@@ -1,0 +1,54 @@
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Retrieve</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .book-details {
+            margin-bottom: 30px;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="{% url 'list-books' %}">Book Repository</a>
+    </nav>
+    <div class="container">
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                <h1 class="alert-heading">{{ error }}</h1>
+            </div>
+        {% else %}
+            <div class="book-details">
+                <h1 class="my-4">{{ book.name }}</h1>
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>Authors:</strong> {{ book.authors }}</li>
+                    <li class="list-group-item"><strong>Release Date:</strong> {{ book.release_date }}</li>
+                    <li class="list-group-item"><strong>Summary:</strong> {{ book.summary }}</li>
+                    <li class="list-group-item"><strong>Created at:</strong> {{ book.created_at }}</li>
+                    <li class="list-group-item"><strong>Updated at:</strong> {{ book.updated_at }}</li>
+                </ul>
+            </div>
+
+            <div class="btn-group-vertical" role="group" aria-label="Book Actions">
+                <a class="btn btn-primary mb-2" href="{% url 'comments-list' book_id%}">Comments</a>
+                <a class="btn btn-secondary mb-2" href="{% url 'create-comment' book_id %}">Make a Comment</a>
+                <a class="btn btn-info" href="{% url 'list-books' %}">Go back to All Books</a>
+            </div>
+        {% endif %}
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

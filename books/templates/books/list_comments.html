@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment List</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .comment-section {
+            margin-bottom: 30px;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+        }
+        .comment-card {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="{% url 'list-books' %}">Book Repository</a>
+    </nav>
+    <div class="container">
+        {% if error %}
+            <div class="alert alert-danger mt-5" role="alert">
+                <h1 class="alert-heading">{{ error }}</h1>
+            </div>
+        {% elif message %}
+            <div class="alert alert-success mt-5" role="alert">
+                <h1 class="alert-heading">{{ message }}</h1>
+            </div>
+        {% else %}
+            <div class="comment-section">
+                <h1 class="my-4">Comments for "{{ book_name }}"</h1>
+                <h3><a href="{% url 'list-books' %}" class="btn btn-info mb-4">Back to All Books</a></h3>
+                <div class="list-group">
+                    {% for comment in comments %}
+                        <div class="list-group-item comment-card">
+                            <h2 class="h5">{{ comment.title }}</h2>
+                            <h3 class="h6 text-muted">By {{ comment.username }}</h3>
+                            <p>{{ comment.body }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
